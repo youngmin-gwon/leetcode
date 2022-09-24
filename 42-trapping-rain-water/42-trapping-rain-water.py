@@ -1,18 +1,23 @@
 class Solution:
     def trap(self, height:List[int])->int:
-        stack=[]
+        if len(height)<3:
+            return 0
+
         volume=0
+        left,right = 0,len(height)-1
+        left_max,right_max=0,0
 
-        for i in range(len(height)):
-            while stack and height[i]>height[stack[-1]]:
-                top = stack.pop()
-
-                if not stack:
-                    break
-
-                distance = i-stack[-1]-1
-                waters = min(height[i],height[stack[-1]])-height[top]
-                volume += distance*waters
-            stack.append(i)
-
+        while left<right:
+            if height[left]<=height[right]:
+                if height[left]<left_max:
+                    volume+=left_max-height[left]
+                else:
+                    left_max=height[left]
+                left+=1
+            else:
+                if height[right]<right_max:
+                    volume+=right_max-height[right]
+                else:
+                    right_max=height[right]
+                right-=1
         return volume
