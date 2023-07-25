@@ -13,6 +13,7 @@ class Solution {
       );
 
       final counts = <String, int>{};
+      
       for (final word in words) {
         if (counts[word] == null) {
           counts[word] = 1;
